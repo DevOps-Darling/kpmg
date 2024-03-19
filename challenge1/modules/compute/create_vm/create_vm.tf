@@ -3,8 +3,8 @@ resource "azurerm_windows_virtual_machine" "create_vm" {
     resource_group_name = var.resource_group_name
     location = var.location
     size = var.vm_size
-    admin_username = var.admin_username
-    admin_password = var.admin_password
+    admin_username = var.vm_username
+    admin_password = var.vm_password
     network_interface_ids = var.network_interface_ids
 
     source_image_reference {
@@ -15,7 +15,7 @@ resource "azurerm_windows_virtual_machine" "create_vm" {
     }
 
     os_disk {
-      storage_account_type = var.vm_os_disk_storage_type
+      storage_account_type = var.vm_os_disk_strorage_type
       caching = var.vm_os_disk_caching
     }
 

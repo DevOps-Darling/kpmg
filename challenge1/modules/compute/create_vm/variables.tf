@@ -18,12 +18,12 @@ variable "vm_size" {
   type        = string
 }
 
-variable "admin_username" {
+variable "vm_username" {
   description = "The admin username for the virtual machine"
   type        = string
 }
 
-variable "admin_password" {
+variable "vm_password" {
   description = "The admin password for the virtual machine"
   type        = string
 }
