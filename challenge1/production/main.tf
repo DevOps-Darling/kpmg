@@ -36,9 +36,9 @@ module "fronEnd_nic" {
 }
 
 module "frontEnd_vm" {
-    depends_on = [module.kpmg_resource_group]
+    depends_on = [module.fronEnd_nic]
     source = "../modules/compute/create_vm"
-    resource_group_name = module.kpmg_resource_group.kpmg_rg_id
+    resource_group_name = module.kpmg_resource_group.rg_name
     location = "EAST US"
     vm_name = "AzrPrdPkpmg"
     vm_size = "Standard_D2ds_v4"
@@ -51,7 +51,24 @@ module "frontEnd_vm" {
     vm_username = "admin"
     vm_password = "admin"
     network_interface_ids = [module.fronEnd_nic.nic_id]
+}
 
+module "presentation_tier" {
+    depends_on = [module.kpmg_resource_group]
+    source = "../modules/storage"
+    frontendstoragename = "frontendstorage"
+    rg_name = [module.kpmg_resource_group.rg_name]
+    location = "EAST US"
+    account_replication_type = "LRS"
+    account_tier             = "Standard"
 
+}
+
+module "application_tier" {
+    source = "../modules/functions"
+  name                     = "frontendstorage"
+  resource_group_name      = [module.kpmg_resource_group.rg_name]
+  location                 = "EAST US"
+  key = asdw4ad21
 }
 
